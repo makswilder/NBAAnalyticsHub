@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -18,8 +19,28 @@ public class PlayerController {
 
     private final PlayerService playerService;
 
+    @GetMapping
+    public ResponseEntity<List<PlayerDto>> getAllPlayers() {
+        return ResponseEntity.ok(playerService.getAllPlayers());
+    }
+
+    @GetMapping("/top")
+    public ResponseEntity<List<PlayerDto>> getTopScorers() {
+        return ResponseEntity.ok(playerService.getTopScorers());
+    }
+
+    @GetMapping("/sort/asc")
+    public ResponseEntity<List<PlayerDto>> getPlayersSortedByAsc() {
+        return  ResponseEntity.ok(playerService.getPlayersSortedByAsc());
+    }
+
+    @GetMapping("/sort/desc")
+    public ResponseEntity<List<PlayerDto>> getPlayersSortedByDesc() {
+        return  ResponseEntity.ok(playerService.getPlayersSortedByDesc());
+    }
+
     @PostMapping
-    private ResponseEntity<PlayerDto> createPlayer(
+    public ResponseEntity<PlayerDto> createPlayer(
             @Valid @RequestBody CreatePlayerRequest request
     ) {
         PlayerDto createdPlayer = playerService.createPlayer(request);
@@ -29,7 +50,7 @@ public class PlayerController {
     }
 
     @PutMapping("/{id}")
-    private ResponseEntity<PlayerDto> updatePlayer(
+    public ResponseEntity<PlayerDto> updatePlayer(
             @PathVariable UUID id,
             @Valid @RequestBody CreatePlayerRequest request
     ) {
@@ -40,7 +61,7 @@ public class PlayerController {
     }
 
     @DeleteMapping("/{id}")
-    private ResponseEntity<PlayerDto> deletePlayer(
+    public ResponseEntity<PlayerDto> deletePlayer(
             @PathVariable UUID id
     ) {
         playerService.deletePlayer(id);
