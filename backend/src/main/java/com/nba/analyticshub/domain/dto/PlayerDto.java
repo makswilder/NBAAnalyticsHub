@@ -21,8 +21,8 @@ public class PlayerDto {
     private Integer gameStarts;
     private Integer minutesPlayed;
     private Integer fieldGoals;
-    private Integer threePoint;
-    private Integer twoPoint;
+    private Integer threePoints;
+    private Integer twoPoints;
     private Integer assists;
     private Integer steals;
     private Integer blocks;

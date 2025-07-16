@@ -44,10 +44,10 @@ public class Player {
     private Integer fieldGoals;
 
     @Column(name = "three_points")
-    private Integer threePoint;
+    private Integer threePoints;
 
     @Column(name = "two_points")
-    private Integer twoPoint;
+    private Integer twoPoints;
 
     @Column(name = "assists")
     private Integer assists;
@@ -71,11 +71,11 @@ public class Player {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return Objects.equals(id, player.id) && Objects.equals(name, player.name) && Objects.equals(nation, player.nation) && Objects.equals(age, player.age) && Objects.equals(position, player.position) && Objects.equals(gamesPlayed, player.gamesPlayed) && Objects.equals(gameStarts, player.gameStarts) && Objects.equals(minutesPlayed, player.minutesPlayed) && Objects.equals(fieldGoals, player.fieldGoals) && Objects.equals(threePoint, player.threePoint) && Objects.equals(twoPoint, player.twoPoint) && Objects.equals(assists, player.assists) && Objects.equals(steals, player.steals) && Objects.equals(blocks, player.blocks) && Objects.equals(turnovers, player.turnovers) && Objects.equals(points, player.points) && Objects.equals(team, player.team);
+        return Objects.equals(id, player.id) && Objects.equals(name, player.name) && Objects.equals(nation, player.nation) && Objects.equals(age, player.age) && Objects.equals(position, player.position) && Objects.equals(gamesPlayed, player.gamesPlayed) && Objects.equals(gameStarts, player.gameStarts) && Objects.equals(minutesPlayed, player.minutesPlayed) && Objects.equals(fieldGoals, player.fieldGoals) && Objects.equals(threePoints, player.threePoints) && Objects.equals(twoPoints, player.twoPoints) && Objects.equals(assists, player.assists) && Objects.equals(steals, player.steals) && Objects.equals(blocks, player.blocks) && Objects.equals(turnovers, player.turnovers) && Objects.equals(points, player.points) && Objects.equals(team, player.team);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, nation, age, position, gamesPlayed, gameStarts, minutesPlayed, fieldGoals, threePoint, twoPoint, assists, steals, blocks, turnovers, points, team);
+        return Objects.hash(id, name, nation, age, position, gamesPlayed, gameStarts, minutesPlayed, fieldGoals, threePoints, twoPoints, assists, steals, blocks, turnovers, points, team);
     }
 }

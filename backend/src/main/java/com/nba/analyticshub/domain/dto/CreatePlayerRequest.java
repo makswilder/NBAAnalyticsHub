@@ -49,4 +49,22 @@ public class CreatePlayerRequest {
 
     @Min(value = 0, message = "2-points shots made cannot be negative")
     private Integer twoPoints;
+
+    @Min(value = 0, message = "Number of games played cannot be negative")
+    private Integer gamesPlayed;
+
+    @Min(value = 0, message = "Number of games starts cannot be negative")
+    private Integer gameStarts;
+
+    @Min(value = 0, message = "Number of minutes played cannot be negative")
+    private Integer minutesPlayed;
+
+    @Min(value = 0, message = "Number of field goals made cannot be negative")
+    private Integer fieldGoals;
+
+    @Min(value = 0, message = "Number of steals cannot be negative")
+    private Integer steals;
+
+    @Min(value = 0, message = "Number of turnovers cannot be negative")
+    private Integer turnovers;
 }
