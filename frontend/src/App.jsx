@@ -23,13 +23,28 @@ function App() {
           >
             NBA Analytics Hub
           </Typography>
-          <Button color='inherit' component={Link} to='/teams' startIcon={<Group />}>
+          <Button
+            color='inherit'
+            component={Link}
+            to='/teams'
+            startIcon={<Group />}
+          >
             Teams
           </Button>
-          <Button color='inherit' component={Link} to='/positions' startIcon={<SportsBasketball />}>
+          <Button
+            color='inherit'
+            component={Link}
+            to='/positions'
+            startIcon={<SportsBasketball />}
+          >
             Positions
           </Button>
-          <Button color='inherit' component={Link} to='/players' startIcon={<Person />}>
+          <Button
+            color='inherit'
+            component={Link}
+            to='/players'
+            startIcon={<Person />}
+          >
             Players
           </Button>
           <Button color='inherit' component={Link} to='/login'>
@@ -43,6 +58,41 @@ function App() {
           element={
             <div style={{ textAlign: 'center', marginTop: '40px' }}>
               <Typography variant='h3'>Welcome to NBA Analytics Hub</Typography>
+              <img
+                src='/hero.jpg'
+                alt='NBA Analytics Hub Hero'
+                style={{
+                  width: '100%',
+                  maxWidth: '600px',
+                  borderRadius: '12px',
+                  marginBottom: '24px',
+                }}
+              />
+              <Typography
+                variant='h6'
+                style={{
+                  marginTop: '16px',
+                  marginBottom: '24px',
+                }}
+              >
+                NBA Analytics Hub is your gateway to exploring comprehensive NBA
+                data. Dive into detailed analytics on teams, players, and positions.
+                Discover stats, trends, and insights to enhance your basketball
+                knowledge. Whether you're a fan, analyst, or just curious, our
+                platform offers interactive tools and visualizations to help you
+                make sense of the numbers. Sign up to unlock personalized
+                features, or log in to continue your journey. Get started now and
+                experience the power of NBA analytics!
+              </Typography>
+              <Button
+                variant='contained'
+                color='primary'
+                component={Link}
+                to='/register'
+                style={{ marginTop: '16px' }}
+              >
+                Get Started
+              </Button>
               <div
                 style={{
                   display: 'flex',
@@ -50,23 +100,7 @@ function App() {
                   alignItems: 'center',
                   marginTop: '32px',
                 }}
-              >
-                <input
-                  type='text'
-                  placeholder='Search players, teams, nations...'
-                  style={{
-                    width: '400px',
-                    padding: '10px',
-                    fontSize: '16px',
-                    borderRadius: '4px',
-                    border: '1px solid #ccc',
-                    marginRight: '16px',
-                  }}
-                />
-                <Button variant='contained' color='primary'>
-                  Filter
-                </Button>
-              </div>
+              ></div>
             </div>
           }
         />
