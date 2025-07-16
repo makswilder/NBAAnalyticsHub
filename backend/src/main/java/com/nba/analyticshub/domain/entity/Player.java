@@ -32,37 +32,37 @@ public class Player {
     private String position;
 
     @Column(name = "games_played")
-    private Integer g;
+    private Integer gamesPlayed;
 
     @Column(name = "games_starts")
-    private Integer gs;
+    private Integer gameStarts;
 
     @Column(name = "minutes_played")
-    private Integer mp;
+    private Integer minutesPlayed;
 
     @Column(name = "field_goals")
-    private Integer fg;
+    private Integer fieldGoals;
 
     @Column(name = "three_points")
-    private Integer threeP;
+    private Integer threePoint;
 
     @Column(name = "two_points")
-    private Integer twoP;
+    private Integer twoPoint;
 
     @Column(name = "assists")
-    private Integer ast;
+    private Integer assists;
 
     @Column(name = "steals")
-    private Integer stl;
+    private Integer steals;
 
     @Column(name = "blocks")
-    private Integer blk;
+    private Integer blocks;
 
     @Column(name = "turnovers")
-    private Integer tov;
+    private Integer turnovers;
 
     @Column(name = "points")
-    private Integer pts;
+    private Integer points;
 
     @Column(name = "team_name")
     private String team;
@@ -71,11 +71,11 @@ public class Player {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return Objects.equals(id, player.id) && Objects.equals(name, player.name) && Objects.equals(nation, player.nation) && Objects.equals(age, player.age) && Objects.equals(position, player.position) && Objects.equals(g, player.g) && Objects.equals(gs, player.gs) && Objects.equals(mp, player.mp) && Objects.equals(fg, player.fg) && Objects.equals(threeP, player.threeP) && Objects.equals(twoP, player.twoP) && Objects.equals(ast, player.ast) && Objects.equals(stl, player.stl) && Objects.equals(blk, player.blk) && Objects.equals(tov, player.tov) && Objects.equals(pts, player.pts) && Objects.equals(team, player.team);
+        return Objects.equals(id, player.id) && Objects.equals(name, player.name) && Objects.equals(nation, player.nation) && Objects.equals(age, player.age) && Objects.equals(position, player.position) && Objects.equals(gamesPlayed, player.gamesPlayed) && Objects.equals(gameStarts, player.gameStarts) && Objects.equals(minutesPlayed, player.minutesPlayed) && Objects.equals(fieldGoals, player.fieldGoals) && Objects.equals(threePoint, player.threePoint) && Objects.equals(twoPoint, player.twoPoint) && Objects.equals(assists, player.assists) && Objects.equals(steals, player.steals) && Objects.equals(blocks, player.blocks) && Objects.equals(turnovers, player.turnovers) && Objects.equals(points, player.points) && Objects.equals(team, player.team);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, nation, age, position, g, gs, mp, fg, threeP, twoP, ast, stl, blk, tov, pts, team);
+        return Objects.hash(id, name, nation, age, position, gamesPlayed, gameStarts, minutesPlayed, fieldGoals, threePoint, twoPoint, assists, steals, blocks, turnovers, points, team);
     }
 }
