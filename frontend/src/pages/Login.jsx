@@ -28,7 +28,7 @@ function Login() {
       <Typography variant='body2' sx={{ textAlign: 'center' }}>
         Don't have an account?{' '}
         <Button color='primary' component={Link} to='/register'>
-          Register
+          Sign up
         </Button>
       </Typography>
     </Box>
