@@ -1,5 +1,41 @@
 import React from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
+import { styled } from '@mui/material/styles';
+
+const ImageBox = styled(Box)(({ image }) => ({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  background: `url(${image}) center center / cover no-repeat`,
+  zIndex: 0,
+  transition: 'transform 0.3s ease-out 0s',
+  willChange: 'transform',
+  transform: 'scale(1)',
+  '@keyframes slowZoom': {
+    '0%': { transform: 'scale(1.08)' },
+    '100%': { transform: 'scale(1.15)' },
+  },
+  '.MuiCard-root:hover &': {
+    transform: 'scale(1.08)',
+    animation: 'slowZoom 2.5s linear 0.3s forwards',
+  },
+}));
+
+const OverlayBox = styled(Box)(() => ({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  background: 'rgba(0,0,0,0.45)',
+  zIndex: 1,
+  transition: 'background 0.3s ease',
+  '.MuiCard-root:hover &': {
+    background: 'rgba(0,0,0,0.20)',
+  },
+}));
 
 const PositionCard = ({ name, description, image }) => (
   <Card
@@ -13,23 +49,14 @@ const PositionCard = ({ name, description, image }) => (
       width: '100%',
       height: '100%',
       position: 'relative',
-      background: `url(${image}) center center / cover no-repeat`,
       boxShadow: 3,
       borderRadius: 0,
       overflow: 'hidden',
+      cursor: 'pointer',
     }}
   >
-    <Box
-      sx={{
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        background: 'rgba(0,0,0,0.45)',
-        zIndex: 1,
-      }}
-    />
+    <ImageBox image={image} />
+    <OverlayBox />
     <Box
       sx={{
         position: 'relative',
