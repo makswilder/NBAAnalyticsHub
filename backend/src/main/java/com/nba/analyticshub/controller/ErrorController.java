@@ -7,6 +7,7 @@ import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class ErrorController {
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiErrorResponse> handleException(Exception ex) {
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ResponseEntity<ApiErrorResponse> handleException(UsernameNotFoundException ex) {
         log.error("Caught Exception", ex);
         ApiErrorResponse err = ApiErrorResponse.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .message("An unexpected error occurred!")
+                .message("adad")
                 .build();
         return new ResponseEntity<>(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -48,7 +49,7 @@ public class ErrorController {
     public ResponseEntity<ApiErrorResponse> handleBadCredentialsException(BadCredentialsException ex) {
         ApiErrorResponse err = ApiErrorResponse.builder()
                 .status(HttpStatus.UNAUTHORIZED.value())
-                .message("Incorrect username or password!")
+                .message(ex.getMessage())
                 .build();
         return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
     }
