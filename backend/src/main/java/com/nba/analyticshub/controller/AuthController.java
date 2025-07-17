@@ -2,8 +2,11 @@ package com.nba.analyticshub.controller;
 
 import com.nba.analyticshub.domain.dto.AuthResponse;
 import com.nba.analyticshub.domain.dto.LoginRequest;
+import com.nba.analyticshub.domain.dto.RegisterRequest;
+import com.nba.analyticshub.domain.dto.UserDto;
 import com.nba.analyticshub.service.AuthService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
+
     private final AuthService authService;
 
-    @PostMapping
+    @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
         UserDetails userDetails = authService.authenticate(
                 loginRequest.getEmail(),
@@ -30,5 +34,11 @@ public class AuthController {
                 .build();
 
         return ResponseEntity.ok(authResponse);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> register(@RequestBody RegisterRequest registerRequest) {
+        UserDto created = authService.registerUser(registerRequest);
+        return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
 }

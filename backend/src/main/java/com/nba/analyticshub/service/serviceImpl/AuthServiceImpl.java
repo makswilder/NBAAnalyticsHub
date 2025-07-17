@@ -1,5 +1,10 @@
 package com.nba.analyticshub.service.serviceImpl;
 
+import com.nba.analyticshub.domain.dto.RegisterRequest;
+import com.nba.analyticshub.domain.dto.UserDto;
+import com.nba.analyticshub.domain.entity.User;
+import com.nba.analyticshub.mapper.UserMapper;
+import com.nba.analyticshub.repository.UserRepository;
 import com.nba.analyticshub.service.AuthService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -11,6 +16,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
@@ -24,6 +31,9 @@ public class AuthServiceImpl implements AuthService {
 
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
 
     @Value("${jwt.secret}")
     private String secretKey;
@@ -55,6 +65,22 @@ public class AuthServiceImpl implements AuthService {
     public UserDetails validateToken(String token) {
         String username = extractUsername(token);
         return userDetailsService.loadUserByUsername(username);
+    }
+
+    @Override
+    public UserDto registerUser(RegisterRequest registerRequest) {
+        if (userRepository.existsByEmail(registerRequest.getEmail())) {
+            throw new UsernameNotFoundException("User with this email already exists");
+        }
+
+        User user = User.builder()
+                .name(registerRequest.getName())
+                .email(registerRequest.getEmail())
+                .password(passwordEncoder.encode(registerRequest.getPassword()))
+                .build();
+
+        User savedUser = userRepository.save(user);
+        return userMapper.toDto(savedUser);
     }
 
     private String extractUsername(String token) {
