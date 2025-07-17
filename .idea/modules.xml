@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/NBAAnalyticsHub.iml" filepath="$PROJECT_DIR$/NBAAnalyticsHub.iml" />
+      <module fileurl="file://$PROJECT_DIR$/backend/analyticshub.iml" filepath="$PROJECT_DIR$/backend/analyticshub.iml" />
     </modules>
   </component>
 </project>
