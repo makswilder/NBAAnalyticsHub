@@ -10,9 +10,10 @@ const ImageBox = styled(Box)(({ image }) => ({
   height: '100%',
   background: `url(${image}) center center / cover no-repeat`,
   zIndex: 0,
-  transition: 'transform 0.3s ease-out 0s',
-  willChange: 'transform',
+  transition: 'transform 0.3s ease-out 0s, filter 0.3s ease',
+  willChange: 'transform, filter',
   transform: 'scale(1)',
+  filter: 'grayscale(100%)',
   '@keyframes slowZoom': {
     '0%': { transform: 'scale(1.08)' },
     '100%': { transform: 'scale(1.15)' },
@@ -20,6 +21,7 @@ const ImageBox = styled(Box)(({ image }) => ({
   '.MuiCard-root:hover &': {
     transform: 'scale(1.08)',
     animation: 'slowZoom 2.5s linear 0.3s forwards',
+    filter: 'none',
   },
 }));
 
