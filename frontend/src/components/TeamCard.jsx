@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 
-const Team = ({ name, logo }) => (
+const TeamCard = ({ name, logo }) => (
   <Card
     sx={{
       display: 'flex',
@@ -38,4 +38,4 @@ const Team = ({ name, logo }) => (
   </Card>
 );
 
-export default Team;
+export default TeamCard;

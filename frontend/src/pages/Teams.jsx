@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Typography, TextField, Button } from '@mui/material';
-import Team from '../components/Team';
+import TeamCard from '../components/TeamCard';
 
 const teams = [
   { name: 'Atlanta Hawks', logo: '/teams/atlanta-hawks.svg' },
@@ -15,7 +15,7 @@ const teams = [
   { name: 'Golden State Warriors', logo: '/teams/golden-state-warriors.svg' },
   { name: 'Houston Rockets', logo: '/teams/houston-rockets.svg' },
   { name: 'Indiana Pacers', logo: '/teams/indiana-pacers.svg' },
-  { name: 'Los Angeles Clippers', logo: '/teams/LA-clippers.svg' },
+  { name: 'LA Clippers', logo: '/teams/LA-clippers.svg' },
   { name: 'Los Angeles Lakers', logo: '/teams/los-angeles-lakers.svg' },
   { name: 'Memphis Grizzlies', logo: '/teams/memphis-grizzlies.svg' },
   { name: 'Miami Heat', logo: '/teams/miami-heat.svg' },
@@ -64,9 +64,6 @@ function Teams() {
           size='small'
           style={{ marginRight: 8 }}
         />
-        <Button variant='contained' size='medium'>
-          Filter
-        </Button>
       </div>
       <div
         style={{
@@ -77,7 +74,7 @@ function Teams() {
         }}
       >
         {filteredTeams.map((team) => (
-          <Team key={team.name} name={team.name} logo={team.logo} />
+          <TeamCard key={team.name} name={team.name} logo={team.logo} />
         ))}
       </div>
     </div>
