@@ -1,106 +1,111 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Button } from '@mui/material';
-import { Group, SportsBasketball, Person } from '@mui/icons-material';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import Navbar from './components/Navbar.jsx';
 import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import Teams from './pages/Teams.jsx';
 import Positions from './pages/Positions.jsx';
 import Players from './pages/Players.jsx';
+import { Typography, Button } from '@mui/material';
 
 function App() {
   return (
     <Router>
-      <AppBar position='static'>
-        <Toolbar>
-          <Typography
-            variant='h6'
-            sx={{ flexGrow: 1, cursor: 'pointer' }}
-            component={Link}
-            to='/'
-            color='inherit'
-            style={{ textDecoration: 'none' }}
-          >
-            NBA Analytics Hub
-          </Typography>
-          <Button
-            color='inherit'
-            component={Link}
-            to='/teams'
-            startIcon={<Group />}
-          >
-            Teams
-          </Button>
-          <Button
-            color='inherit'
-            component={Link}
-            to='/positions'
-            startIcon={<SportsBasketball />}
-          >
-            Positions
-          </Button>
-          <Button
-            color='inherit'
-            component={Link}
-            to='/players'
-            startIcon={<Person />}
-          >
-            Players
-          </Button>
-          <Button color='inherit' component={Link} to='/login'>
-            Login
-          </Button>
-        </Toolbar>
-      </AppBar>
+      <Navbar />
       <Routes>
         <Route
           path='/'
           element={
-            <div style={{ textAlign: 'center', marginTop: '40px' }}>
-              <Typography variant='h3'>Welcome to NBA Analytics Hub</Typography>
-              <img
-                src='/hero.jpg'
-                alt='NBA Analytics Hub Hero'
-                style={{
-                  width: '100%',
-                  maxWidth: '600px',
-                  borderRadius: '12px',
-                  marginBottom: '24px',
-                }}
-              />
-              <Typography
-                variant='h6'
-                style={{
-                  marginTop: '16px',
-                  marginBottom: '24px',
-                }}
-              >
-                NBA Analytics Hub is your gateway to exploring comprehensive NBA
-                data. Dive into detailed analytics on teams, players, and positions.
-                Discover stats, trends, and insights to enhance your basketball
-                knowledge. Whether you're a fan, analyst, or just curious, our
-                platform offers interactive tools and visualizations to help you
-                make sense of the numbers. Sign up to unlock personalized
-                features, or log in to continue your journey. Get started now and
-                experience the power of NBA analytics!
-              </Typography>
-              <Button
-                variant='contained'
-                color='primary'
-                component={Link}
-                to='/register'
-                style={{ marginTop: '16px' }}
-              >
-                Get Started
-              </Button>
+            <div
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                width: '100vw',
+                height: '100vh',
+                overflow: 'hidden',
+                fontFamily: 'Roboto, Arial, sans-serif',
+              }}
+            >
               <div
                 style={{
+                  width: '50vw',
+                  height: '100vh',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  paddingLeft: '48px',
+                  boxSizing: 'border-box',
+                }}
+              >
+                <div
+                  style={{
+                    maxWidth: '600px',
+                    minWidth: '320px',
+                    textAlign: 'left',
+                  }}
+                >
+                  <Typography
+                    variant='h1'
+                    sx={{
+                      color: 'primary.main',
+                      fontWeight: 1200,
+                      fontSize: { xs: '3rem', md: '5rem' },
+                    }}
+                  >
+                    Welcome to NBA Analytics Hub
+                  </Typography>
+                  <Typography
+                    variant='h6'
+                    sx={{
+                      marginTop: '16px',
+                      marginBottom: '24px',
+                      color: 'secondary.main',
+                      fontWeight: 400,
+                      fontSize: { xs: '1.1rem', md: '1.5rem' },
+                    }}
+                  >
+                    Explore NBA teams, players, and positions with interactive
+                    analytics and visualizations. Track stats, trends, and
+                    insights to boost your basketball knowledge. Sign up for
+                    personalized features or log in to continue your journey.
+                    Unlock the power of NBA analytics and get started now.
+                  </Typography>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    component={Link}
+                    to='/register'
+                    sx={{ marginTop: '16px', fontWeight: 600 }}
+                  >
+                    Get Started
+                  </Button>
+                </div>
+              </div>
+              <div
+                style={{
+                  width: '50vw',
+                  height: '100vh',
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
-                  marginTop: '32px',
+                  overflow: 'hidden',
+                  position: 'relative',
                 }}
-              ></div>
+              >
+                <img
+                  src='/hero.jpg'
+                  alt='NBA Analytics Hub Hero'
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: '60% center',
+                    boxShadow: '0 4px 24px rgba(0,0,0,0.12)',
+                    filter: 'brightness(0.8)',
+                  }}
+                />
+              </div>
             </div>
           }
         />
