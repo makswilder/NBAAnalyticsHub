@@ -10,6 +10,7 @@ import {
   Paper,
   Box,
   Button,
+  TextField,
 } from '@mui/material';
 import EditPlayerModal from '../components/EditPlayerModal';
 
@@ -542,6 +543,7 @@ function Players() {
   const [playerList, setPlayerList] = useState(players);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [nameFilter, setNameFilter] = useState(''); // State for filter
 
   const handleEditClick = (player) => {
     setSelectedPlayer(player);
@@ -564,6 +566,20 @@ function Players() {
     handleModalClose();
   };
 
+  const filteredPlayers = playerList.filter((p) =>
+    p.name.toLowerCase().includes(nameFilter.toLowerCase())
+  );
+
+  const uniquePlayers = [];
+  const seen = new Set();
+  for (const p of filteredPlayers) {
+    const key = p.name + p.team;
+    if (!seen.has(key)) {
+      uniquePlayers.push(p);
+      seen.add(key);
+    }
+  }
+
   return (
     <Box sx={{ mt: 10, px: { xs: 1, md: 6 }, textAlign: 'center' }}>
       <Typography
@@ -576,6 +592,14 @@ function Players() {
         Explore player stats, teams, and positions. Scroll horizontally for more
         columns.
       </Typography>
+      <TextField
+        label='Filter by Name'
+        variant='outlined'
+        size='small'
+        value={nameFilter}
+        onChange={(e) => setNameFilter(e.target.value)}
+        sx={{ mb: 2, width: '300px' }}
+      />
       <TableContainer component={Paper} sx={{ maxHeight: 700, boxShadow: 1 }}>
         <Table stickyHeader>
           <TableHead>
@@ -600,7 +624,7 @@ function Players() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {playerList.map((p) => (
+            {uniquePlayers.map((p) => (
               <TableRow key={p.name + p.team} hover>
                 <TableCell>{p.name}</TableCell>
                 <TableCell>{p.nation}</TableCell>
