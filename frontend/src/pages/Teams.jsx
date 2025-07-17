@@ -37,10 +37,10 @@ const teams = [
 
 function Teams() {
   return (
-    <div style={{ textAlign: 'center', marginTop: '40px' }}>
-      <Typography variant='h4'>Teams Page</Typography>
+    <div style={{ textAlign: 'center', marginTop: '80px' }}>
+      <Typography variant='h4'>NBA Teams</Typography>
       <Typography variant='body1'>
-        List of NBA teams will be displayed here.
+        Explore detailed profiles and insights for every NBA team.
       </Typography>
       <div
         style={{
