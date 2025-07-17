@@ -1,5 +1,5 @@
-import React from 'react';
-import { Typography } from '@mui/material';
+import React, { useState } from 'react';
+import { Typography, TextField, Button } from '@mui/material';
 import Team from '../components/Team';
 
 const teams = [
@@ -36,6 +36,12 @@ const teams = [
 ];
 
 function Teams() {
+  const [filter, setFilter] = useState('');
+
+  const filteredTeams = teams.filter((team) =>
+    team.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
   return (
     <div style={{ textAlign: 'center', marginTop: '80px' }}>
       <Typography variant='h4'>NBA Teams</Typography>
@@ -45,12 +51,32 @@ function Teams() {
       <div
         style={{
           display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          marginTop: 24,
+        }}
+      >
+        <TextField
+          label='Search for teams...'
+          variant='outlined'
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+          size='small'
+          style={{ marginRight: 8 }}
+        />
+        <Button variant='contained' size='medium'>
+          Filter
+        </Button>
+      </div>
+      <div
+        style={{
+          display: 'flex',
           flexWrap: 'wrap',
           justifyContent: 'center',
           marginTop: 32,
         }}
       >
-        {teams.map((team) => (
+        {filteredTeams.map((team) => (
           <Team key={team.name} name={team.name} logo={team.logo} />
         ))}
       </div>
