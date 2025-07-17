@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Typography,
   Table,
@@ -9,7 +9,9 @@ import {
   TableRow,
   Paper,
   Box,
+  Button,
 } from '@mui/material';
+import EditPlayerModal from '../components/EditPlayerModal';
 
 const players = [
   {
@@ -537,6 +539,31 @@ const players = [
 ];
 
 function Players() {
+  const [playerList, setPlayerList] = useState(players);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPlayer, setSelectedPlayer] = useState(null);
+
+  const handleEditClick = (player) => {
+    setSelectedPlayer(player);
+    setModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false);
+    setSelectedPlayer(null);
+  };
+
+  const handleSave = (updatedPlayer) => {
+    setPlayerList((prev) =>
+      prev.map((p) =>
+        p.name === selectedPlayer.name && p.team === selectedPlayer.team
+          ? updatedPlayer
+          : p
+      )
+    );
+    handleModalClose();
+  };
+
   return (
     <Box sx={{ mt: 10, px: { xs: 1, md: 6 }, textAlign: 'center' }}>
       <Typography
@@ -569,10 +596,11 @@ function Players() {
               <TableCell>TOV</TableCell>
               <TableCell>PTS</TableCell>
               <TableCell>Team</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {players.map((p) => (
+            {playerList.map((p) => (
               <TableRow key={p.name + p.team} hover>
                 <TableCell>{p.name}</TableCell>
                 <TableCell>{p.nation}</TableCell>
@@ -590,11 +618,28 @@ function Players() {
                 <TableCell>{p.tov}</TableCell>
                 <TableCell>{p.pts}</TableCell>
                 <TableCell>{p.team}</TableCell>
+                <TableCell>
+                  <Button
+                    variant='contained'
+                    color='primary'
+                    size='small'
+                    sx={{ borderRadius: '4px', fontWeight: 600 }}
+                    onClick={() => handleEditClick(p)}
+                  >
+                    Edit
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       </TableContainer>
+      <EditPlayerModal
+        open={modalOpen}
+        onClose={handleModalClose}
+        player={selectedPlayer}
+        onSave={handleSave}
+      />
     </Box>
   );
 }
