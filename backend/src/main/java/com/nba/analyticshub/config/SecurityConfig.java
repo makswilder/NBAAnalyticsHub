@@ -53,7 +53,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/v1/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/players").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/players/top").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/players/sort/asc").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/players/sort/desc").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/players/**").permitAll()
                         .anyRequest().authenticated()
                 )
