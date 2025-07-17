@@ -22,7 +22,7 @@ public class ErrorController {
         log.error("Caught Exception", ex);
         ApiErrorResponse err = ApiErrorResponse.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .message("adad")
+                .message(ex.getMessage())
                 .build();
         return new ResponseEntity<>(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -49,7 +49,7 @@ public class ErrorController {
     public ResponseEntity<ApiErrorResponse> handleBadCredentialsException(BadCredentialsException ex) {
         ApiErrorResponse err = ApiErrorResponse.builder()
                 .status(HttpStatus.UNAUTHORIZED.value())
-                .message(ex.getMessage())
+                .message("Incorrect username or password!")
                 .build();
         return new ResponseEntity<>(err, HttpStatus.UNAUTHORIZED);
     }
