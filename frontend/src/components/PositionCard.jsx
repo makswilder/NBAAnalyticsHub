@@ -66,10 +66,29 @@ const PositionCard = ({ name, description, image }) => (
         textAlign: 'center',
       }}
     >
-      <Typography variant='h6' sx={{ color: '#fff', fontWeight: 700, mb: 2 }}>
+      <Typography
+        variant='h4'
+        sx={{
+          color: '#fff',
+          fontWeight: 900,
+          mb: 2,
+          letterSpacing: 1.5,
+          textTransform: 'uppercase',
+          textShadow: '0 2px 8px rgba(0,0,0,0.4)',
+        }}
+      >
         {name}
       </Typography>
-      <Typography variant='body2' sx={{ color: '#fff', fontWeight: 400 }}>
+      <Typography
+        variant='body1'
+        sx={{
+          color: '#fff',
+          fontWeight: 500,
+          fontSize: '1.15rem',
+          letterSpacing: 0.5,
+          textShadow: '0 1px 4px rgba(0,0,0,0.3)',
+        }}
+      >
         {description}
       </Typography>
     </Box>
