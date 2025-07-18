@@ -1,7 +1,11 @@
 # NBA Analytics Hub 🏀
 
-A full-stack web application for NBA player statistics and analytics.  
-Built with **Spring Boot**, **React**, **Java 21**, and **PostgreSQL**, the project supports user authentication, role-based access control, and advanced player filtering.
+NBA Player Analytics Hub is a powerful full-stack web application that delivers real-time insights into NBA player performance. Designed for both fans and analysts, it scrapes, stores, and visualizes stats for over 500+ players across the league.
+With a sleek UI and robust backend, NBA Player Analytics Hub lets users explore player data with advanced filtering, role-based access control, and secure authentication all powered by modern technologies like Spring Boot, React, Java 21, and PostgreSQL.
+
+
+<img width="1907" height="881" alt="Main Page" src="https://github.com/user-attachments/assets/97519cf6-853c-4c4b-bdf7-11fc8ec8f208" />
+
 
 ---
 
