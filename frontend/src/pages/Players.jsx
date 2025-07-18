@@ -83,7 +83,7 @@ function Players() {
         });
     } else {
       // Create new player
-      fetch('http://localhost:8080/api/v1/players/', {
+      fetch('http://localhost:8080/api/v1/players', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(playerData),
@@ -148,11 +148,7 @@ function Players() {
           onChange={(e) => setNameFilter(e.target.value)}
           sx={{ width: '300px', mr: 2 }}
         />
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={handleAddClick}
-        >
+        <Button variant='contained' color='primary' onClick={handleAddClick}>
           Add Player
         </Button>
       </Box>
