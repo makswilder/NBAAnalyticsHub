@@ -71,6 +71,14 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
+    public List<PlayerDto> getPlayerByTeamAndPosition(String team, String position) {
+        return playerRepository.findByTeamAndPosition(team, position)
+                .stream()
+                .map(playerMapper::toDto)
+                .toList();
+    }
+
+    @Override
     public Player getPlayerById(UUID id) {
         return playerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Player with id " + id + " not found"));
