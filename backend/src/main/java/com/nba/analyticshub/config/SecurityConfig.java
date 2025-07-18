@@ -58,6 +58,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/players").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/players/sort/name").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/players/sort/top").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/players/sort/team").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/v1/players/sort/position").permitAll()

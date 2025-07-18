@@ -87,6 +87,14 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
+    public List<PlayerDto> getPlayersByNameContainingIgnoreCase(String name) {
+        return playerRepository.findByNameContainingIgnoreCase(name)
+                .stream()
+                .map(playerMapper::toDto)
+                .toList();
+    }
+
+    @Override
     public Player getPlayerById(UUID id) {
         return playerRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Player with id " + id + " not found"));

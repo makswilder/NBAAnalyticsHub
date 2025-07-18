@@ -48,6 +48,11 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.getPlayersByNationContainingIgnoreCase(nation));
     }
 
+    @GetMapping("/sort/name")
+    public ResponseEntity<List<PlayerDto>> getByName(@RequestParam String name) {
+        return ResponseEntity.ok(playerService.getPlayersByNameContainingIgnoreCase(name));
+    }
+
     @GetMapping("/sort/asc")
     public ResponseEntity<List<PlayerDto>> getPlayersSortedByAsc() {
         return  ResponseEntity.ok(playerService.getPlayersSortedByAsc());
