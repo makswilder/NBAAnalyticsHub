@@ -24,9 +24,33 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.getAllPlayers());
     }
 
-    @GetMapping("/top")
+    @GetMapping("/sort/top")
     public ResponseEntity<List<PlayerDto>> getTopScorers() {
         return ResponseEntity.ok(playerService.getTopScorers());
+    }
+
+    @GetMapping("/sort/team")
+    public ResponseEntity<List<PlayerDto>> getByTeam(@RequestParam String team) {
+        return ResponseEntity.ok(playerService.getPlayerByTeam(team));
+    }
+
+    @GetMapping("/sort/position")
+    public ResponseEntity<List<PlayerDto>> getByPosition(@RequestParam String position) {
+        return ResponseEntity.ok(playerService.getPlayerByPosition(position));
+    }
+
+    @GetMapping("/sort/team-position")
+    public ResponseEntity<List<PlayerDto>> getByTeamAndPosition(@RequestParam String team,  @RequestParam String position) {
+        return ResponseEntity.ok(playerService.getPlayerByTeamAndPosition(team, position));
+    }
+    @GetMapping("/sort/nation")
+    public ResponseEntity<List<PlayerDto>> getByNation(@RequestParam String nation) {
+        return ResponseEntity.ok(playerService.getPlayersByNationContainingIgnoreCase(nation));
+    }
+
+    @GetMapping("/sort/name")
+    public ResponseEntity<List<PlayerDto>> getByName(@RequestParam String name) {
+        return ResponseEntity.ok(playerService.getPlayersByNameContainingIgnoreCase(name));
     }
 
     @GetMapping("/sort/asc")
