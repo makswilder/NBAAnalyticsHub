@@ -62,7 +62,7 @@ NBA Analytics Hub enables:
 | Method | Endpoint                            | Access         | Description                              |
 |--------|-------------------------------------|----------------|------------------------------------------|
 | POST   | `/api/v1/auth/register`             | Public         | Register a new user                      |
-| POST   | `/api/v1/auth`                      | Public         | Login and receive JWT token              |
+| POST   | `/api/v1/auth/login`                | Public         | Login and receive JWT token              |
 | GET    | `/api/v1/players`                   | Public         | Get all players                          |
 | GET    | `/api/v1/players/sort/name`         | Public         | Sort players by name                     |
 | GET    | `/api/v1/players/sort/top`          | Public         | Get top scoring players                  |
