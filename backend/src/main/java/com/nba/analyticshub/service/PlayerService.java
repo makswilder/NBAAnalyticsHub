@@ -15,6 +15,7 @@ public interface PlayerService {
     List<PlayerDto> getPlayerByTeam(String team);
     List<PlayerDto> getPlayerByPosition(String position);
     List<PlayerDto> getPlayerByTeamAndPosition(String team, String position);
+    List<PlayerDto> getPlayersByNationContainingIgnoreCase(String nation);
     Player getPlayerById(UUID id);
 
     PlayerDto createPlayer(CreatePlayerRequest request);
