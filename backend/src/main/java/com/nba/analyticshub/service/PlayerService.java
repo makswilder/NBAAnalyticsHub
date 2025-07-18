@@ -12,6 +12,7 @@ public interface PlayerService {
     List<PlayerDto> getTopScorers();
     List<PlayerDto> getPlayersSortedByAsc();
     List<PlayerDto> getPlayersSortedByDesc();
+    List<PlayerDto> getPlayerByTeam(String team);
     Player getPlayerById(UUID id);
 
     PlayerDto createPlayer(CreatePlayerRequest request);

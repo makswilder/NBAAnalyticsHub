@@ -24,9 +24,14 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.getAllPlayers());
     }
 
-    @GetMapping("/top")
+    @GetMapping("/sort/top")
     public ResponseEntity<List<PlayerDto>> getTopScorers() {
         return ResponseEntity.ok(playerService.getTopScorers());
+    }
+
+    @GetMapping("/sort/team")
+    public ResponseEntity<List<PlayerDto>> getByTeam(@RequestParam String team) {
+        return ResponseEntity.ok(playerService.getPlayerByTeam(team));
     }
 
     @GetMapping("/sort/asc")
