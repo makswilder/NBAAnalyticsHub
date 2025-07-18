@@ -1,46 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Typography, TextField, Button } from '@mui/material';
 import TeamCard from '../components/TeamCard';
-
-const teams = [
-  { name: 'Atlanta Hawks', logo: '/teams/atlanta-hawks.svg' },
-  { name: 'Boston Celtics', logo: '/teams/boston-celtics.svg' },
-  { name: 'Brooklyn Nets', logo: '/teams/brooklyn-nets.svg' },
-  { name: 'Charlotte Hornets', logo: '/teams/charlotte-hornets.svg' },
-  { name: 'Chicago Bulls', logo: '/teams/chicago-bulls.svg' },
-  { name: 'Cleveland Cavaliers', logo: '/teams/cleveland-cavaliers.svg' },
-  { name: 'Dallas Mavericks', logo: '/teams/dallas-mavericks.svg' },
-  { name: 'Denver Nuggets', logo: '/teams/denver-nuggets.svg' },
-  { name: 'Detroit Pistons', logo: '/teams/detroit-pistons.svg' },
-  { name: 'Golden State Warriors', logo: '/teams/golden-state-warriors.svg' },
-  { name: 'Houston Rockets', logo: '/teams/houston-rockets.svg' },
-  { name: 'Indiana Pacers', logo: '/teams/indiana-pacers.svg' },
-  { name: 'LA Clippers', logo: '/teams/LA-clippers.svg' },
-  { name: 'Los Angeles Lakers', logo: '/teams/los-angeles-lakers.svg' },
-  { name: 'Memphis Grizzlies', logo: '/teams/memphis-grizzlies.svg' },
-  { name: 'Miami Heat', logo: '/teams/miami-heat.svg' },
-  { name: 'Milwaukee Bucks', logo: '/teams/milwaukee-bucks.svg' },
-  { name: 'Minnesota Timberwolves', logo: '/teams/minnesota-timberwolves.svg' },
-  { name: 'New Orleans Pelicans', logo: '/teams/new-orleans-pelicans.svg' },
-  { name: 'New York Knicks', logo: '/teams/new-york-knicks.svg' },
-  { name: 'Oklahoma City Thunder', logo: '/teams/oklahoma-city-thunder.svg' },
-  { name: 'Orlando Magic', logo: '/teams/orlando-magic.svg' },
-  { name: 'Philadelphia 76ers', logo: '/teams/philadelphia-76ers.svg' },
-  { name: 'Phoenix Suns', logo: '/teams/phoenix-suns.svg' },
-  { name: 'Portland Trail Blazers', logo: '/teams/portland-trail-blazers.svg' },
-  { name: 'Sacramento Kings', logo: '/teams/sacramento-kings.svg' },
-  { name: 'San Antonio Spurs', logo: '/teams/san-antonio-spurs.svg' },
-  { name: 'Toronto Raptors', logo: '/teams/toronto-raptors.svg' },
-  { name: 'Utah Jazz', logo: '/teams/utah-jazz.svg' },
-  { name: 'Washington Wizards', logo: '/teams/washington-wizards.svg' },
-];
+import teamsService from '../services/teamsService';
 
 function Teams() {
   const [filter, setFilter] = useState('');
+  const [teams, setTeams] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTeams = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const teamsData = await teamsService.getAllTeams();
+        setTeams(teamsData);
+      } catch (err) {
+        setError('Failed to load teams data');
+        console.error('Error fetching teams:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeams();
+  }, []);
 
   const filteredTeams = teams.filter((team) =>
     team.name.toLowerCase().includes(filter.toLowerCase())
   );
+
+  if (loading) {
+    return (
+      <div style={{ textAlign: 'center', marginTop: '80px' }}>
+        <Typography variant='h4'>Loading Teams...</Typography>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div style={{ textAlign: 'center', marginTop: '80px' }}>
+        <Typography variant='h4' color='error'>
+          Error Loading Teams
+        </Typography>
+        <Typography variant='body1'>{error}</Typography>
+      </div>
+    );
+  }
 
   return (
     <div style={{ textAlign: 'center', marginTop: '80px' }}>
