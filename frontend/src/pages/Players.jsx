@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Typography,
   Table,
@@ -14,539 +14,41 @@ import {
 } from '@mui/material';
 import EditPlayerModal from '../components/EditPlayerModal';
 
-const players = [
-  {
-    name: 'Mouhamed Gueye',
-    nation: 'sn SEN',
-    age: 22,
-    pos: 'PF',
-    g: 33,
-    gs: 28,
-    mp: 533,
-    fg: 72,
-    threeP: 21,
-    twoP: 51,
-    ast: 27,
-    stl: 28,
-    blk: 33,
-    tov: 15,
-    pts: 197,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Keaton Wallace',
-    nation: 'us USA',
-    age: 25,
-    pos: 'PG',
-    g: 31,
-    gs: 5,
-    mp: 501,
-    fg: 65,
-    threeP: 27,
-    twoP: 38,
-    ast: 81,
-    stl: 28,
-    blk: 9,
-    tov: 33,
-    pts: 168,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Zaccharie Risacher',
-    nation: 'fr FRA',
-    age: 19,
-    pos: 'SF',
-    g: 75,
-    gs: 73,
-    mp: 1843,
-    fg: 357,
-    threeP: 122,
-    twoP: 235,
-    ast: 92,
-    stl: 52,
-    blk: 37,
-    tov: 92,
-    pts: 942,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Daeqwon Plowden',
-    nation: 'us USA',
-    age: 26,
-    pos: 'SG',
-    g: 6,
-    gs: 0,
-    mp: 72,
-    fg: 16,
-    threeP: 9,
-    twoP: 7,
-    ast: 2,
-    stl: 0,
-    blk: 0,
-    tov: 4,
-    pts: 43,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Jacob Toppin',
-    nation: 'us USA',
-    age: 24,
-    pos: 'SF',
-    g: 1,
-    gs: 0,
-    mp: 27,
-    fg: 6,
-    threeP: 5,
-    twoP: 1,
-    ast: 2,
-    stl: 0,
-    blk: 0,
-    tov: 1,
-    pts: 17,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Kobe Bufkin',
-    nation: 'us USA',
-    age: 21,
-    pos: 'SG',
-    g: 10,
-    gs: 0,
-    mp: 124,
-    fg: 18,
-    threeP: 4,
-    twoP: 14,
-    ast: 17,
-    stl: 3,
-    blk: 2,
-    tov: 8,
-    pts: 53,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Caris LeVert',
-    nation: 'us USA',
-    age: 30,
-    pos: 'SG',
-    g: 26,
-    gs: 0,
-    mp: 692,
-    fg: 145,
-    threeP: 46,
-    twoP: 99,
-    ast: 75,
-    stl: 24,
-    blk: 14,
-    tov: 25,
-    pts: 388,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Jalen Johnson',
-    nation: 'us USA',
-    age: 23,
-    pos: 'SF',
-    g: 36,
-    gs: 36,
-    mp: 1284,
-    fg: 271,
-    threeP: 44,
-    twoP: 227,
-    ast: 181,
-    stl: 56,
-    blk: 36,
-    tov: 106,
-    pts: 680,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Larry Nance Jr.',
-    nation: 'us USA',
-    age: 32,
-    pos: 'PF',
-    g: 24,
-    gs: 3,
-    mp: 463,
-    fg: 80,
-    threeP: 34,
-    twoP: 46,
-    ast: 38,
-    stl: 20,
-    blk: 13,
-    tov: 16,
-    pts: 203,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Trae Young',
-    nation: 'us USA',
-    age: 26,
-    pos: 'PG',
-    g: 76,
-    gs: 76,
-    mp: 2739,
-    fg: 566,
-    threeP: 218,
-    twoP: 348,
-    ast: 880,
-    stl: 91,
-    blk: 12,
-    tov: 355,
-    pts: 1841,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Onyeka Okongwu',
-    nation: 'us USA',
-    age: 24,
-    pos: 'C',
-    g: 74,
-    gs: 40,
-    mp: 2064,
-    fg: 388,
-    threeP: 48,
-    twoP: 340,
-    ast: 168,
-    stl: 69,
-    blk: 68,
-    tov: 90,
-    pts: 988,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Dyson Daniels',
-    nation: 'au AUS',
-    age: 21,
-    pos: 'SG',
-    g: 76,
-    gs: 76,
-    mp: 2571,
-    fg: 455,
-    threeP: 80,
-    twoP: 375,
-    ast: 333,
-    stl: 229,
-    blk: 55,
-    tov: 155,
-    pts: 1073,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Georges Niang',
-    nation: 'us USA',
-    age: 31,
-    pos: 'PF',
-    g: 28,
-    gs: 2,
-    mp: 644,
-    fg: 120,
-    threeP: 76,
-    twoP: 44,
-    ast: 44,
-    stl: 11,
-    blk: 7,
-    tov: 34,
-    pts: 339,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Clint Capela',
-    nation: 'ch SUI',
-    age: 30,
-    pos: 'C',
-    g: 55,
-    gs: 41,
-    mp: 1176,
-    fg: 218,
-    threeP: 0,
-    twoP: 218,
-    ast: 62,
-    stl: 34,
-    blk: 53,
-    tov: 47,
-    pts: 488,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Terance Mann',
-    nation: 'us USA',
-    age: 28,
-    pos: 'SG',
-    g: 30,
-    gs: 1,
-    mp: 682,
-    fg: 118,
-    threeP: 34,
-    twoP: 84,
-    ast: 62,
-    stl: 19,
-    blk: 4,
-    tov: 22,
-    pts: 294,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Dominick Barlow',
-    nation: 'us USA',
-    age: 21,
-    pos: 'SF',
-    g: 35,
-    gs: 4,
-    mp: 375,
-    fg: 60,
-    threeP: 7,
-    twoP: 53,
-    ast: 19,
-    stl: 9,
-    blk: 16,
-    tov: 5,
-    pts: 148,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Georges Niang',
-    nation: 'us USA',
-    age: 31,
-    pos: 'PF',
-    g: 79,
-    gs: 3,
-    mp: 1697,
-    fg: 286,
-    threeP: 166,
-    twoP: 120,
-    ast: 111,
-    stl: 28,
-    blk: 14,
-    tov: 82,
-    pts: 784,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Garrison Mathews',
-    nation: 'us USA',
-    age: 28,
-    pos: 'SG',
-    g: 47,
-    gs: 2,
-    mp: 830,
-    fg: 102,
-    threeP: 85,
-    twoP: 17,
-    ast: 60,
-    stl: 26,
-    blk: 15,
-    tov: 31,
-    pts: 353,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Vit Krejci',
-    nation: 'cz CZE',
-    age: 24,
-    pos: 'PG',
-    g: 57,
-    gs: 16,
-    mp: 1153,
-    fg: 145,
-    threeP: 90,
-    twoP: 55,
-    ast: 147,
-    stl: 36,
-    blk: 26,
-    tov: 50,
-    pts: 412,
-    team: 'Atlanta Hawks',
-  },
-  {
-    name: 'Luke Kornet',
-    nation: 'us USA',
-    age: 29,
-    pos: 'C',
-    g: 73,
-    gs: 16,
-    mp: 1361,
-    fg: 187,
-    threeP: 0,
-    twoP: 187,
-    ast: 117,
-    stl: 36,
-    blk: 71,
-    tov: 31,
-    pts: 441,
-    team: 'Boston Celtics',
-  },
-  {
-    name: 'Kristaps Porzingis',
-    nation: 'lv LVA',
-    age: 29,
-    pos: 'C',
-    g: 42,
-    gs: 42,
-    mp: 1210,
-    fg: 277,
-    threeP: 103,
-    twoP: 174,
-    ast: 87,
-    stl: 31,
-    blk: 63,
-    tov: 53,
-    pts: 818,
-    team: 'Boston Celtics',
-  },
-  {
-    name: 'Jaylen Brown',
-    nation: 'us USA',
-    age: 28,
-    pos: 'SF',
-    g: 63,
-    gs: 63,
-    mp: 2158,
-    fg: 518,
-    threeP: 116,
-    twoP: 402,
-    ast: 286,
-    stl: 73,
-    blk: 19,
-    tov: 162,
-    pts: 1398,
-    team: 'Boston Celtics',
-  },
-  {
-    name: 'Sam Hauser',
-    nation: 'us USA',
-    age: 27,
-    pos: 'PF',
-    g: 71,
-    gs: 19,
-    mp: 1541,
-    fg: 214,
-    threeP: 166,
-    twoP: 48,
-    ast: 64,
-    stl: 41,
-    blk: 13,
-    tov: 23,
-    pts: 605,
-    team: 'Boston Celtics',
-  },
-  {
-    name: 'Xavier Tillman Sr.',
-    nation: 'us USA',
-    age: 26,
-    pos: 'C',
-    g: 33,
-    gs: 2,
-    mp: 231,
-    fg: 13,
-    threeP: 5,
-    twoP: 8,
-    ast: 7,
-    stl: 11,
-    blk: 5,
-    tov: 14,
-    pts: 34,
-    team: 'Boston Celtics',
-  },
-  {
-    name: 'Jrue Holiday',
-    nation: 'us USA',
-    age: 34,
-    pos: 'PG',
-    g: 62,
-    gs: 62,
-    mp: 1896,
-    fg: 254,
-    threeP: 108,
-    twoP: 146,
-    ast: 239,
-    stl: 66,
-    blk: 27,
-    tov: 77,
-    pts: 686,
-    team: 'Boston Celtics',
-  },
-  {
-    name: 'Al Horford',
-    nation: 'do DOM',
-    age: 38,
-    pos: 'C',
-    g: 60,
-    gs: 42,
-    mp: 1659,
-    fg: 195,
-    threeP: 114,
-    twoP: 81,
-    ast: 128,
-    stl: 36,
-    blk: 51,
-    tov: 46,
-    pts: 538,
-    team: 'Boston Celtics',
-  },
-  {
-    name: 'Miles Norris',
-    nation: 'us USA',
-    age: 24,
-    pos: 'PF',
-    g: 3,
-    gs: 0,
-    mp: 35,
-    fg: 2,
-    threeP: 2,
-    twoP: 0,
-    ast: 0,
-    stl: 2,
-    blk: 1,
-    tov: 0,
-    pts: 7,
-    team: 'Boston Celtics',
-  },
-  {
-    name: 'Payton Pritchard',
-    nation: 'us USA',
-    age: 27,
-    pos: 'PG',
-    g: 80,
-    gs: 3,
-    mp: 2271,
-    fg: 409,
-    threeP: 255,
-    twoP: 154,
-    ast: 279,
-    stl: 70,
-    blk: 14,
-    tov: 83,
-    pts: 1144,
-    team: 'Boston Celtics',
-  },
-  {
-    name: 'JD Davison',
-    nation: 'us USA',
-    age: 22,
-    pos: 'PG',
-    g: 16,
-    gs: 0,
-    mp: 93,
-    fg: 12,
-    threeP: 4,
-    twoP: 8,
-    ast: 13,
-    stl: 5,
-    blk: 1,
-    tov: 13,
-    pts: 33,
-    team: 'Boston Celtics',
-  },
-];
-
 function Players() {
-  const [playerList, setPlayerList] = useState(players);
+  const [playerList, setPlayerList] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
-  const [nameFilter, setNameFilter] = useState(''); // State for filter
+  const [nameFilter, setNameFilter] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    setIsLoading(true);
+    fetch('http://localhost:8080/api/v1/players')
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then((data) => {
+        setPlayerList(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching players:', error);
+        setError('Failed to load players.');
+        setIsLoading(false);
+      });
+  }, []);
 
   const handleEditClick = (player) => {
     setSelectedPlayer(player);
+    setModalOpen(true);
+  };
+
+  const handleAddClick = () => {
+    setSelectedPlayer(null);
     setModalOpen(true);
   };
 
@@ -555,30 +57,75 @@ function Players() {
     setSelectedPlayer(null);
   };
 
-  const handleSave = (updatedPlayer) => {
-    setPlayerList((prev) =>
-      prev.map((p) =>
-        p.name === selectedPlayer.name && p.team === selectedPlayer.team
-          ? updatedPlayer
-          : p
-      )
-    );
-    handleModalClose();
+  const handleSave = (playerData) => {
+    if (playerData.id) {
+      // Update existing player
+      fetch(`http://localhost:8080/api/v1/players/${playerData.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(playerData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to update player');
+          }
+          return response.json();
+        })
+        .then((updatedPlayer) => {
+          setPlayerList((prev) =>
+            prev.map((p) => (p.id === updatedPlayer.id ? updatedPlayer : p))
+          );
+          handleModalClose();
+        })
+        .catch((error) => {
+          console.error('Error updating player:', error);
+          alert('Failed to update player');
+        });
+    } else {
+      // Create new player
+      fetch('http://localhost:8080/api/v1/players/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(playerData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to create player');
+          }
+          return response.json();
+        })
+        .then((newPlayer) => {
+          setPlayerList((prev) => [...prev, newPlayer]);
+          handleModalClose();
+        })
+        .catch((error) => {
+          console.error('Error creating player:', error);
+          alert('Failed to create player');
+        });
+    }
+  };
+
+  const handleDelete = (player) => {
+    if (window.confirm(`Are you sure you want to delete ${player.name}?`)) {
+      fetch(`http://localhost:8080/api/v1/players/${player.id}`, {
+        method: 'DELETE',
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to delete player');
+          }
+          setPlayerList((prev) => prev.filter((p) => p.id !== player.id));
+        })
+        .catch((error) => {
+          console.error('Error deleting player:', error);
+          alert('Failed to delete player');
+        });
+    }
   };
 
   const filteredPlayers = playerList.filter((p) =>
     p.name.toLowerCase().includes(nameFilter.toLowerCase())
   );
-
-  const uniquePlayers = [];
-  const seen = new Set();
-  for (const p of filteredPlayers) {
-    const key = p.name + p.team;
-    if (!seen.has(key)) {
-      uniquePlayers.push(p);
-      seen.add(key);
-    }
-  }
 
   return (
     <Box sx={{ mt: 10, px: { xs: 1, md: 6 }, textAlign: 'center' }}>
@@ -592,72 +139,96 @@ function Players() {
         Explore player stats, teams, and positions. Scroll horizontally for more
         columns.
       </Typography>
-      <TextField
-        label='Filter by Name'
-        variant='outlined'
-        size='small'
-        value={nameFilter}
-        onChange={(e) => setNameFilter(e.target.value)}
-        sx={{ mb: 2, width: '300px' }}
-      />
-      <TableContainer component={Paper} sx={{ maxHeight: 700, boxShadow: 1 }}>
-        <Table stickyHeader>
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Nation</TableCell>
-              <TableCell>Age</TableCell>
-              <TableCell>Pos</TableCell>
-              <TableCell>G</TableCell>
-              <TableCell>GS</TableCell>
-              <TableCell>MP</TableCell>
-              <TableCell>FG</TableCell>
-              <TableCell>3P</TableCell>
-              <TableCell>2P</TableCell>
-              <TableCell>AST</TableCell>
-              <TableCell>STL</TableCell>
-              <TableCell>BLK</TableCell>
-              <TableCell>TOV</TableCell>
-              <TableCell>PTS</TableCell>
-              <TableCell>Team</TableCell>
-              <TableCell></TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {uniquePlayers.map((p) => (
-              <TableRow key={p.name + p.team} hover>
-                <TableCell>{p.name}</TableCell>
-                <TableCell>{p.nation}</TableCell>
-                <TableCell>{p.age}</TableCell>
-                <TableCell>{p.pos}</TableCell>
-                <TableCell>{p.g}</TableCell>
-                <TableCell>{p.gs}</TableCell>
-                <TableCell>{p.mp}</TableCell>
-                <TableCell>{p.fg}</TableCell>
-                <TableCell>{p.threeP}</TableCell>
-                <TableCell>{p.twoP}</TableCell>
-                <TableCell>{p.ast}</TableCell>
-                <TableCell>{p.stl}</TableCell>
-                <TableCell>{p.blk}</TableCell>
-                <TableCell>{p.tov}</TableCell>
-                <TableCell>{p.pts}</TableCell>
-                <TableCell>{p.team}</TableCell>
-                <TableCell>
-                  <Button
-                    variant='contained'
-                    color='primary'
-                    size='small'
-                    sx={{ borderRadius: '4px', fontWeight: 600 }}
-                    onClick={() => handleEditClick(p)}
-                  >
-                    Edit
-                  </Button>
-                </TableCell>
+      <Box sx={{ mb: 2 }}>
+        <TextField
+          label='Filter by Name'
+          variant='outlined'
+          size='small'
+          value={nameFilter}
+          onChange={(e) => setNameFilter(e.target.value)}
+          sx={{ width: '300px', mr: 2 }}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleAddClick}
+        >
+          Add Player
+        </Button>
+      </Box>
+      {isLoading ? (
+        <Typography>Loading players...</Typography>
+      ) : error ? (
+        <Typography color='error'>{error}</Typography>
+      ) : (
+        <TableContainer component={Paper} sx={{ maxHeight: 700, boxShadow: 1 }}>
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell>Nation</TableCell>
+                <TableCell>Age</TableCell>
+                <TableCell>Pos</TableCell>
+                <TableCell>G</TableCell>
+                <TableCell>GS</TableCell>
+                <TableCell>MP</TableCell>
+                <TableCell>FG</TableCell>
+                <TableCell>3P</TableCell>
+                <TableCell>2P</TableCell>
+                <TableCell>AST</TableCell>
+                <TableCell>STL</TableCell>
+                <TableCell>BLK</TableCell>
+                <TableCell>TOV</TableCell>
+                <TableCell>PTS</TableCell>
+                <TableCell>Team</TableCell>
+                <TableCell>Actions</TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+            </TableHead>
+            <TableBody>
+              {filteredPlayers.map((p) => (
+                <TableRow key={p.id} hover>
+                  <TableCell>{p.name}</TableCell>
+                  <TableCell>{p.nation}</TableCell>
+                  <TableCell>{p.age}</TableCell>
+                  <TableCell>{p.position}</TableCell>
+                  <TableCell>{p.gamesPlayer}</TableCell>
+                  <TableCell>{p.gameStarts}</TableCell>
+                  <TableCell>{p.minutesPlayed}</TableCell>
+                  <TableCell>{p.fieldGoals}</TableCell>
+                  <TableCell>{p.threePoints}</TableCell>
+                  <TableCell>{p.twoPoints}</TableCell>
+                  <TableCell>{p.assists}</TableCell>
+                  <TableCell>{p.steals}</TableCell>
+                  <TableCell>{p.blocks}</TableCell>
+                  <TableCell>{p.turnovers}</TableCell>
+                  <TableCell>{p.points}</TableCell>
+                  <TableCell>{p.team}</TableCell>
+                  <TableCell>
+                    <Button
+                      variant='contained'
+                      color='primary'
+                      size='small'
+                      sx={{ borderRadius: '4px', fontWeight: 600, mr: 1 }}
+                      onClick={() => handleEditClick(p)}
+                    >
+                      Edit
+                    </Button>
+                    <Button
+                      variant='contained'
+                      color='secondary'
+                      size='small'
+                      sx={{ borderRadius: '4px', fontWeight: 600 }}
+                      onClick={() => handleDelete(p)}
+                    >
+                      Delete
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      )}
       <EditPlayerModal
         open={modalOpen}
         onClose={handleModalClose}
