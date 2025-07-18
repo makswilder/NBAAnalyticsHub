@@ -11,6 +11,10 @@ import {
   Box,
   Button,
   TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
 } from '@mui/material';
 import EditPlayerModal from '../components/EditPlayerModal';
 
@@ -19,12 +23,29 @@ function Players() {
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPlayer, setSelectedPlayer] = useState(null);
   const [nameFilter, setNameFilter] = useState('');
+  const [sortFilter, setSortFilter] = useState('default');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
+  const fetchPlayers = (filter = 'default') => {
     setIsLoading(true);
-    fetch('http://localhost:8080/api/v1/players')
+    let url = 'http://localhost:8080/api/v1/players';
+
+    switch (filter) {
+      case 'top':
+        url = 'http://localhost:8080/api/v1/players/sort/top';
+        break;
+      case 'asc':
+        url = 'http://localhost:8080/api/v1/players/sort/asc';
+        break;
+      case 'desc':
+        url = 'http://localhost:8080/api/v1/players/sort/desc';
+        break;
+      default:
+        url = 'http://localhost:8080/api/v1/players';
+    }
+
+    fetch(url)
       .then((response) => {
         if (!response.ok) {
           throw new Error('Network response was not ok');
@@ -40,7 +61,11 @@ function Players() {
         setError('Failed to load players.');
         setIsLoading(false);
       });
-  }, []);
+  };
+
+  useEffect(() => {
+    fetchPlayers(sortFilter);
+  }, [sortFilter]);
 
   const handleEditClick = (player) => {
     setSelectedPlayer(player);
@@ -139,15 +164,36 @@ function Players() {
         Explore player stats, teams, and positions. Scroll horizontally for more
         columns.
       </Typography>
-      <Box sx={{ mb: 2 }}>
+      <Box
+        sx={{
+          mb: 2,
+          display: 'flex',
+          gap: 2,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
         <TextField
           label='Filter by Name'
           variant='outlined'
           size='small'
           value={nameFilter}
           onChange={(e) => setNameFilter(e.target.value)}
-          sx={{ width: '300px', mr: 2 }}
+          sx={{ width: '300px' }}
         />
+        <FormControl size='small' sx={{ minWidth: 200 }}>
+          <InputLabel>Sort Players</InputLabel>
+          <Select
+            value={sortFilter}
+            onChange={(e) => setSortFilter(e.target.value)}
+            label='Sort Players'
+          >
+            <MenuItem value='default'>Default</MenuItem>
+            <MenuItem value='top'>Top Scorers</MenuItem>
+            <MenuItem value='asc'>A-Z</MenuItem>
+            <MenuItem value='desc'>Z-A</MenuItem>
+          </Select>
+        </FormControl>
         <Button variant='contained' color='primary' onClick={handleAddClick}>
           Add Player
         </Button>
