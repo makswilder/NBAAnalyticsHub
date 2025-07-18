@@ -47,35 +47,85 @@ function Players() {
     setModalOpen(true);
   };
 
+  const handleAddClick = () => {
+    setSelectedPlayer(null);
+    setModalOpen(true);
+  };
+
   const handleModalClose = () => {
     setModalOpen(false);
     setSelectedPlayer(null);
   };
 
-  const handleSave = (updatedPlayer) => {
-    setPlayerList((prev) =>
-      prev.map((p) =>
-        p.name === selectedPlayer.name && p.team === selectedPlayer.team
-          ? updatedPlayer
-          : p
-      )
-    );
-    handleModalClose();
+  const handleSave = (playerData) => {
+    if (playerData.id) {
+      // Update existing player
+      fetch(`http://localhost:8080/api/v1/players/${playerData.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(playerData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to update player');
+          }
+          return response.json();
+        })
+        .then((updatedPlayer) => {
+          setPlayerList((prev) =>
+            prev.map((p) => (p.id === updatedPlayer.id ? updatedPlayer : p))
+          );
+          handleModalClose();
+        })
+        .catch((error) => {
+          console.error('Error updating player:', error);
+          alert('Failed to update player');
+        });
+    } else {
+      // Create new player
+      fetch('http://localhost:8080/api/v1/players/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(playerData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to create player');
+          }
+          return response.json();
+        })
+        .then((newPlayer) => {
+          setPlayerList((prev) => [...prev, newPlayer]);
+          handleModalClose();
+        })
+        .catch((error) => {
+          console.error('Error creating player:', error);
+          alert('Failed to create player');
+        });
+    }
+  };
+
+  const handleDelete = (player) => {
+    if (window.confirm(`Are you sure you want to delete ${player.name}?`)) {
+      fetch(`http://localhost:8080/api/v1/players/${player.id}`, {
+        method: 'DELETE',
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Failed to delete player');
+          }
+          setPlayerList((prev) => prev.filter((p) => p.id !== player.id));
+        })
+        .catch((error) => {
+          console.error('Error deleting player:', error);
+          alert('Failed to delete player');
+        });
+    }
   };
 
   const filteredPlayers = playerList.filter((p) =>
     p.name.toLowerCase().includes(nameFilter.toLowerCase())
   );
-
-  const uniquePlayers = [];
-  const seen = new Set();
-  for (const p of filteredPlayers) {
-    const key = p.name + p.team;
-    if (!seen.has(key)) {
-      uniquePlayers.push(p);
-      seen.add(key);
-    }
-  }
 
   return (
     <Box sx={{ mt: 10, px: { xs: 1, md: 6 }, textAlign: 'center' }}>
@@ -89,14 +139,23 @@ function Players() {
         Explore player stats, teams, and positions. Scroll horizontally for more
         columns.
       </Typography>
-      <TextField
-        label='Filter by Name'
-        variant='outlined'
-        size='small'
-        value={nameFilter}
-        onChange={(e) => setNameFilter(e.target.value)}
-        sx={{ mb: 2, width: '300px' }}
-      />
+      <Box sx={{ mb: 2 }}>
+        <TextField
+          label='Filter by Name'
+          variant='outlined'
+          size='small'
+          value={nameFilter}
+          onChange={(e) => setNameFilter(e.target.value)}
+          sx={{ width: '300px', mr: 2 }}
+        />
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleAddClick}
+        >
+          Add Player
+        </Button>
+      </Box>
       {isLoading ? (
         <Typography>Loading players...</Typography>
       ) : error ? (
@@ -122,12 +181,12 @@ function Players() {
                 <TableCell>TOV</TableCell>
                 <TableCell>PTS</TableCell>
                 <TableCell>Team</TableCell>
-                <TableCell></TableCell>
+                <TableCell>Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {uniquePlayers.map((p) => (
-                <TableRow key={p.name + p.team} hover>
+              {filteredPlayers.map((p) => (
+                <TableRow key={p.id} hover>
                   <TableCell>{p.name}</TableCell>
                   <TableCell>{p.nation}</TableCell>
                   <TableCell>{p.age}</TableCell>
@@ -149,10 +208,19 @@ function Players() {
                       variant='contained'
                       color='primary'
                       size='small'
-                      sx={{ borderRadius: '4px', fontWeight: 600 }}
+                      sx={{ borderRadius: '4px', fontWeight: 600, mr: 1 }}
                       onClick={() => handleEditClick(p)}
                     >
                       Edit
+                    </Button>
+                    <Button
+                      variant='contained'
+                      color='secondary'
+                      size='small'
+                      sx={{ borderRadius: '4px', fontWeight: 600 }}
+                      onClick={() => handleDelete(p)}
+                    >
+                      Delete
                     </Button>
                   </TableCell>
                 </TableRow>
