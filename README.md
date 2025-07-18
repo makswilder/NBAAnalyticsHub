@@ -34,9 +34,9 @@ NBA Analytics Hub enables:
 ## Security
 
 - Authentication: JWT token-based
-- Authorization: Role-based (USER vs ADMIN)
+- Authorization: User
 - Public endpoints: Login, register, player listing
-- Protected endpoints: Create, update, delete (admin only)
+- Protected endpoints: Create, update, delete (auth user only)
 
 ## Tech Stack
 
@@ -89,8 +89,9 @@ NBA Analytics Hub enables:
    ./mvnw spring-boot:run
 5. Start the frontend:
    ```bash
-   cd backend
-   ./mvnw spring-boot:run
+   cd frontend
+   npm install
+   npm run dev
    
 ---
 
