@@ -34,6 +34,11 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.getPlayerByTeam(team));
     }
 
+    @GetMapping("/sort/position")
+    public ResponseEntity<List<PlayerDto>> getByPosition(@RequestParam String position) {
+        return ResponseEntity.ok(playerService.getPlayerByPosition(position));
+    }
+
     @GetMapping("/sort/asc")
     public ResponseEntity<List<PlayerDto>> getPlayersSortedByAsc() {
         return  ResponseEntity.ok(playerService.getPlayersSortedByAsc());
