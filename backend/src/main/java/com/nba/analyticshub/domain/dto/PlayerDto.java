@@ -17,7 +17,7 @@ public class PlayerDto {
     private String nation;
     private Integer age;
     private String position;
-    private Integer gamesPlayer;
+    private Integer gamesPlayed;
     private Integer gameStarts;
     private Integer minutesPlayed;
     private Integer fieldGoals;

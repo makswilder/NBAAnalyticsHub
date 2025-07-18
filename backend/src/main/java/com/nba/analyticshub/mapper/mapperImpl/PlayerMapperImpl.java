@@ -17,7 +17,7 @@ public class PlayerMapperImpl implements PlayerMapper {
                 .nation(player.getNation())
                 .age(player.getAge())
                 .position(player.getPosition())
-                .gamesPlayer(player.getGamesPlayed())
+                .gamesPlayed(player.getGamesPlayed())
                 .gameStarts(player.getGameStarts())
                 .minutesPlayed(player.getMinutesPlayed())
                 .fieldGoals(player.getFieldGoals())
