@@ -161,8 +161,7 @@ function Players() {
         NBA Players
       </Typography>
       <Typography variant='body1' sx={{ mb: 3, color: 'secondary.main' }}>
-        Explore player stats, teams, and positions. Scroll horizontally for more
-        columns.
+        Explore player stats, teams, and positions.
       </Typography>
       <Box
         sx={{
