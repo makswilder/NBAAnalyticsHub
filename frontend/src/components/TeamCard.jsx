@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, Typography, Box } from '@mui/material';
 
-const TeamCard = ({ name, logo }) => (
+const TeamCard = ({ name, logo, onClick }) => (
   <Card
     sx={{
       display: 'flex',
@@ -15,6 +15,7 @@ const TeamCard = ({ name, logo }) => (
       boxShadow: 3,
       flex: '0 1 220px',
       transition: 'background 0.1s',
+      cursor: 'pointer',
       '&:hover': {
         background: '#e0e0e0',
       },
@@ -22,6 +23,7 @@ const TeamCard = ({ name, logo }) => (
         background: '#bdbdbd',
       },
     }}
+    onClick={() => onClick && onClick(name)}
   >
     <Box sx={{ width: 80, height: 80, mb: 2 }}>
       <img

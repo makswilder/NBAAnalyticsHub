@@ -203,7 +203,7 @@ function Players() {
       ) : error ? (
         <Typography color='error'>{error}</Typography>
       ) : (
-        <TableContainer component={Paper} sx={{ maxHeight: 700, boxShadow: 1 }}>
+        <TableContainer component={Paper} sx={{ maxHeight: 600, boxShadow: 1 }}>
           <Table stickyHeader>
             <TableHead>
               <TableRow>
