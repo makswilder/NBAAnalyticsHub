@@ -39,8 +39,9 @@ const OverlayBox = styled(Box)(() => ({
   },
 }));
 
-const PositionCard = ({ name, description, image }) => (
+const PositionCard = ({ name, description, image, onClick }) => (
   <Card
+    onClick={onClick}
     sx={{
       display: 'flex',
       flexDirection: 'column',
