@@ -187,7 +187,7 @@ function Players() {
                   <TableCell>{p.nation}</TableCell>
                   <TableCell>{p.age}</TableCell>
                   <TableCell>{p.position}</TableCell>
-                  <TableCell>{p.gamesPlayer}</TableCell>
+                  <TableCell>{p.gamesPlayed}</TableCell>
                   <TableCell>{p.gameStarts}</TableCell>
                   <TableCell>{p.minutesPlayed}</TableCell>
                   <TableCell>{p.fieldGoals}</TableCell>
