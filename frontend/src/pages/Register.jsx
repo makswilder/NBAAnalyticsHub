@@ -1,8 +1,63 @@
-import React from 'react';
-import { Box, Button, TextField, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import {
+  Box,
+  Button,
+  TextField,
+  Typography,
+  Alert,
+  CircularProgress,
+} from '@mui/material';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../hooks/useAuth';
 
 function Register() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+  const { register } = useAuth();
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+    // Clear error when user starts typing
+    if (error) setError('');
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    setLoading(true);
+
+    try {
+      await register(formData);
+      setSuccess('Registration successful! You can now login.');
+      // Reset form
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+      });
+      // Redirect to login page after 2 seconds
+      setTimeout(() => {
+        navigate('/login');
+      }, 2000);
+    } catch (err) {
+      setError(err.message || 'Registration failed. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -25,12 +80,64 @@ function Register() {
         <Typography variant='h4' gutterBottom>
           Sign up
         </Typography>
-        <TextField label='Name' type='text' fullWidth margin='normal' />
-        <TextField label='Email' type='email' fullWidth margin='normal' />
-        <TextField label='Password' type='password' fullWidth margin='normal' />
-        <Button variant='contained' color='primary' fullWidth sx={{ mt: 2 }}>
-          Sign up
-        </Button>
+
+        {error && (
+          <Alert severity='error' sx={{ mb: 2 }}>
+            {error}
+          </Alert>
+        )}
+
+        {success && (
+          <Alert severity='success' sx={{ mb: 2 }}>
+            {success}
+          </Alert>
+        )}
+
+        <form onSubmit={handleSubmit}>
+          <TextField
+            label='Name'
+            type='text'
+            name='name'
+            value={formData.name}
+            onChange={handleChange}
+            fullWidth
+            margin='normal'
+            required
+            disabled={loading}
+          />
+          <TextField
+            label='Email'
+            type='email'
+            name='email'
+            value={formData.email}
+            onChange={handleChange}
+            fullWidth
+            margin='normal'
+            required
+            disabled={loading}
+          />
+          <TextField
+            label='Password'
+            type='password'
+            name='password'
+            value={formData.password}
+            onChange={handleChange}
+            fullWidth
+            margin='normal'
+            required
+            disabled={loading}
+          />
+          <Button
+            type='submit'
+            variant='contained'
+            color='primary'
+            fullWidth
+            sx={{ mt: 2 }}
+            disabled={loading}
+          >
+            {loading ? <CircularProgress size={24} /> : 'Sign up'}
+          </Button>
+        </form>
         <Box sx={{ my: 2 }}>
           <hr style={{ border: 'none', borderTop: '1px solid #ccc' }} />
         </Box>
